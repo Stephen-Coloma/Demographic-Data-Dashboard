@@ -1,4 +1,4 @@
-package FinalGroupProject2;
+package prog2.finalgroup;
 
 public class MyProgram extends MyProgramUtility{
     public static void main(String[] args) {
@@ -7,8 +7,7 @@ public class MyProgram extends MyProgramUtility{
     }
 
     public void run(){
-        MyProgramUtility programUtility = new MyProgramUtility();
-        System.out.println(programUtility);
+
     }
 
 }

@@ -1,4 +1,4 @@
-package FinalGroupProject2;
+package prog2.finalgroup;
 
 public class Citizen implements Comparable<Citizen> {
     /**
@@ -16,15 +16,14 @@ public class Citizen implements Comparable<Citizen> {
     /**
      *This is a Default Constructor of Citizen
     */
-    //diko sure kung tama toh
     public Citizen(){
-        fullName = " ";
+        fullName = "";
         email = "";
         address = "";
         age = 1;
         resident = true;
         district = 1;
-        gender = 'a';
+        gender = 'M';
     }
 
 
@@ -38,7 +37,7 @@ public class Citizen implements Comparable<Citizen> {
      * @param gender this show whether the Citizen is a Male or Female
      * */
 
-    public Citizen( String fullName, String email, String address,int age,boolean resident,int district, char gender){
+    public Citizen(String fullName, String email, String address,int age,boolean resident,int district, char gender){
         this.fullName = fullName;
         this.email = email;
         this.address = address;
