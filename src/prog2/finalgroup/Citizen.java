@@ -112,13 +112,10 @@ public class Citizen implements Comparable<Citizen> {
     public String toString(){
         return fullName +","+email+","+address+","+age+","+resident+","+district+","+gender;
     }
-
-
-    //Hindi pa etoh ang Final na code sa compareTo
     @Override
     public int compareTo(Citizen another) {
         return (this.fullName.compareToIgnoreCase(another.getFullName()));
+    }
 
-    }///temporary return value palang yan
 }// end of class
 

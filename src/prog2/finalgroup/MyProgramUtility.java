@@ -1,9 +1,3 @@
-/**
- * may error na etoh diko alm ayusin hehe
- * Exception in thread "main" java.lang.NumberFormatException: For input string: "Resident"
- * */
-
-
 package prog2.finalgroup;
 
 import java.io.BufferedReader;
@@ -11,29 +5,27 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class MyProgramUtility {
     public static void main(String[] args) {
         MyProgramUtility program = new MyProgramUtility();
         program.run();
-    }
+    }//end of main
 
     public void run() {
         ArrayList<Citizen> citizenArrayList = readDataFromCSV();
-
         citizenArrayList.stream().forEach(System.out::println);
-    }
+    }//end of run
 
-    public ArrayList<Citizen> readDataFromCSV(){
+    public ArrayList<Citizen> readDataFromCSV() {
         ArrayList<Citizen> arrayList = new ArrayList<>(); //instantiation of the ArrayList<Citizen>
 
         //change the src to res
-        try (BufferedReader reader = new BufferedReader(new FileReader("src/data.csv"))){ //try-with-resource
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/data.csv"))) { //try-with-resource
 
             String line;
             while ((line = reader.readLine()) != null) { //returns a boolean value
-                if (!line.contains("\"")){
+                if (!line.contains("\"")) {
                     String[] citizenDetails = line.split(",");    // use comma as separator
 
                     String fullName = citizenDetails[0] + " " + citizenDetails[1];
@@ -45,16 +37,16 @@ public class MyProgramUtility {
                     char gender = Character.toUpperCase(citizenDetails[7].charAt(0));
 
                     //object instantiation
-                    Citizen citizen = new Citizen(fullName,email,address,age,resident,district,gender);
+                    Citizen citizen = new Citizen(fullName, email, address, age, resident, district, gender);
                     arrayList.add(citizen);
 
-                }else {
+                } else {
                     String[] citizenDetails = new String[8]; //final template for the citizenDetails
 
                     String[] myArr; //temporary array that will hold the substring of the text na erase na yung "P.O. Box 621, 5231 Eros Av."
 
                     //Given String Ramona,Bowman,dui.Cum@adipiscingnonluctus.co.uk,"P.O. Box 621, 5231 Eros Av.",62,Non-Resident,5,Female
-                    String temporaryDescriptiveTitle = line.substring((line.indexOf('\"')+1),line.lastIndexOf('\"'));
+                    String temporaryDescriptiveTitle = line.substring((line.indexOf('\"') + 1), line.lastIndexOf('\"'));
                     //kukunin ko as substring yung occurence ng "P.O. Box 621, 5231 Eros Av." sa line
                     //result nito: temporaryDescriptiveTitle = P.O. Box 621, 5231 Eros Av.
 
@@ -72,14 +64,14 @@ public class MyProgramUtility {
                     //eto na yung kukuha sa array na ma s split as substring base sa template variable
 
                     //populate the citizenDetails Array using the items inside the myArr array and the temporaryDescriptiveTitle variable
-                    citizenDetails[0]=myArr[0];
-                    citizenDetails[1]=myArr[1];
-                    citizenDetails[2]=myArr[2];
-                    citizenDetails[3]=temporaryDescriptiveTitle;
-                    citizenDetails[4]=myArr[3];
-                    citizenDetails[5]=myArr[4];
-                    citizenDetails[6]=myArr[5];
-                    citizenDetails[7]=myArr[6];
+                    citizenDetails[0] = myArr[0];
+                    citizenDetails[1] = myArr[1];
+                    citizenDetails[2] = myArr[2];
+                    citizenDetails[3] = temporaryDescriptiveTitle;
+                    citizenDetails[4] = myArr[3];
+                    citizenDetails[5] = myArr[4];
+                    citizenDetails[6] = myArr[5];
+                    citizenDetails[7] = myArr[6];
 
                     String fullName = citizenDetails[0] + " " + citizenDetails[1];
                     String email = citizenDetails[2];
@@ -90,18 +82,122 @@ public class MyProgramUtility {
                     char gender = Character.toUpperCase(citizenDetails[7].charAt(0));
 
                     //object instantiation
-                    Citizen citizen = new Citizen(fullName,email,address,age,resident,district,gender);
+                    Citizen citizen = new Citizen(fullName, email, address, age, resident, district, gender);
                     arrayList.add(citizen);
                 }
-            }
-        }catch (FileNotFoundException fnf){
+            }//end of while
+
+        } catch (FileNotFoundException fnf) {
             System.out.println("File is not found");
         } catch (IOException e) {
             System.out.println("Input output exception");
         }
         return arrayList;
+    }// end of readDataFromCSV()
+
+    /**
+     * This method counts the total number of Citizens.
+     */
+    public void totalPopulation() {
+        ArrayList<Citizen> citizens = readDataFromCSV();
+        long totalPopulation = citizens.stream().count();
+        System.out.println(totalPopulation);
     }
-}
+
+    /**
+     * This method counts the total number of Citizens who is a Resident.
+     */
+    public void countResidents() {
+        ArrayList<Citizen> citizens = readDataFromCSV();
+        int count = (int) citizens.stream().filter(x -> x.isResident() == true).count();
+        System.out.println(count);
+    }
+
+    /**
+     * This method counts the total number of Citizens who is a Non-Resident.
+     */
+    public void countNonResidents() {
+        ArrayList<Citizen> citizens = readDataFromCSV();
+        int count = (int) citizens.stream().filter(x -> x.isResident() == false).count();
+        System.out.println(count);
+    }
+
+    /**
+     * This method counts the total number of Citizens who has an age of 1-12.
+     *
+     * @return count;
+     */
+    public int childrenAge(ArrayList<Citizen> citizens) {
+        int count = 0;
+        for (Citizen citizen : citizens) {
+            if (citizen.getAge() >= 1 && citizen.getAge() <= 12) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    /**
+     * This method counts the total number of Citizens who has an age of 13-18.
+     *
+     * @return count;
+     */
+    public int teenageAge(ArrayList<Citizen> citizens) {
+        int count = 0;
+        for (Citizen citizen : citizens) {
+            if (citizen.getAge() >= 13 && citizen.getAge() <= 18) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    /**
+     * This method counts the total number of Citizens who has an age of 19-Above.
+     *
+     * @return count
+     */
+    public int adultAge(ArrayList<Citizen> citizens) {
+        int count = 0;
+        for (Citizen citizen : citizens) {
+            if (citizen.getAge() >= 19) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    /**
+     * This method counts the total number of Citizens who identifies as a MALE.
+     *
+     * @return count
+     */
+    public int countMales(ArrayList<Citizen> citizens) {
+        int count = 0;
+        for (Citizen citizen : citizens) {
+            if (citizen.getGender() == 'M') {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    /**
+     * This method counts the total number of Citizens who identifies as a FEMALE.
+     *
+     * @return count
+     */
+    public int countFemales(ArrayList<Citizen> citizens) {
+        int count = 0;
+        for (Citizen citizen : citizens) {
+            if (citizen.getGender() == 'F') {
+                count++;
+            }
+        }
+        return count;
+    }
+}//end of class
+
 
 
 
