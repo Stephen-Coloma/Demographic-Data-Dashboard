@@ -1,21 +1,112 @@
 package prog2.finalgroup;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import java.awt.event.ActionListener;
+import java.io.*;
 import java.util.ArrayList;
 
-public class MyProgramUtility {
-    public static void main(String[] args) {
-        MyProgramUtility program = new MyProgramUtility();
-        program.run();
-    }//end of main
+public class AddCitizenGui extends JFrame implements ActionListener {
+    private JTextField firstNameField,lastNameField,emailField, addressField, districtField, genderField,residencyField, ageField;
+    private JLabel firstNameLabel,lastNameLabel, emailLabel, addressLabel, districtLabel, genderLabel, residencyLabel, ageLabel;
+    private JButton addButton;
 
-    public void run() {
-        ArrayList<Citizen> citizenArrayList = readDataFromCSV();
-        citizenArrayList.stream().forEach(System.out::println);
-    }//end of run
+    public AddCitizenGui() {
+        // Set up the JFrame
+        setTitle("Add New Citizen");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(400, 500);
+
+        // Set up the JPanel and layout
+        JPanel panel = new JPanel(new GridLayout(9, 2));
+
+        // Set up the text fields and labels
+//        fullNameLabel = new JLabel("Full Name:");
+//        fullNameField = new JTextField(20);
+        firstNameLabel= new JLabel("FirstName:");
+        firstNameField = new JTextField(20);
+        lastNameLabel = new JLabel("LastName:");
+        lastNameField = new JTextField(20);
+        emailLabel = new JLabel("Email:");
+        emailField = new JTextField(20);
+        addressLabel = new JLabel("Address:");
+        addressField = new JTextField(20);
+        districtLabel = new JLabel("District:");
+        districtField = new JTextField(20);
+        genderLabel = new JLabel("Gender:");
+        genderField = new JTextField(20);
+        residencyLabel = new JLabel("Residency Status:");
+        residencyField = new JTextField(20);
+        ageLabel = new JLabel("Age:");
+        ageField = new JTextField(20);
+
+        // Add the labels and text fields to the panel
+//        panel.add(fullNameLabel);
+//        panel.add(fullNameField);
+        panel.add(firstNameLabel);
+        panel.add(firstNameField);
+        panel.add(lastNameLabel);
+        panel.add(lastNameField);
+        panel.add(emailLabel);
+        panel.add(emailField);
+        panel.add(addressLabel);
+        panel.add(addressField);
+        panel.add(districtLabel);
+        panel.add(districtField);
+        panel.add(genderLabel);
+        panel.add(genderField);
+        panel.add(residencyLabel);
+        panel.add(residencyField);
+        panel.add(ageLabel);
+        panel.add(ageField);
+
+        // Set up the add button and add it to the panel
+        addButton = new JButton("Add");
+        addButton.addActionListener(this);
+        panel.add(addButton);
+
+        // Add the panel to the JFrame
+        add(panel);
+
+        // Make the JFrame visible
+        setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        ArrayList<Citizen> addCitizen = readDataFromCSV();
+        try (FileWriter writer = new FileWriter("res/data.csv")) {
+            if (e.getSource() == addButton) {
+                // Get the values from the text fields
+                String fullName =  lastNameField.getText() + " " + firstNameField.getText();
+                String email = emailField.getText();
+                String address = addressField.getText();
+                int district = Integer.parseInt(districtField.getText());
+                char gender = genderField.getText().toLowerCase().charAt(0);
+                boolean residency = residencyField.getText().toLowerCase().equals("resident");
+                int age = Integer.parseInt(ageField.getText());
+
+                // Create a new Citizen object with the values
+                Citizen newCitizen = new Citizen(fullName, email, address, age, residency, district, gender);
+                addCitizen.add(newCitizen);
+
+                for (int i = 0; i<addCitizen.size(); i++){
+                    writer.write(addCitizen.get(i).toString());
+                    writer.write("\n");
+                }
+
+                // Display a message to the user that the new citizen was added
+                JOptionPane.showMessageDialog(this, "New citizen added: " + newCitizen);
+
+            }
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+
+
+
 
     public ArrayList<Citizen> readDataFromCSV() {
         ArrayList<Citizen> arrayList = new ArrayList<>(); //instantiation of the ArrayList<Citizen>
@@ -77,7 +168,7 @@ public class MyProgramUtility {
                     String email = citizenDetails[2];
                     String address = citizenDetails[3];
                     int age = Integer.parseInt(citizenDetails[4]);
-                    boolean resident = citizenDetails[5].equals("Resident");
+                    boolean resident = citizenDetails[5] == "Resident";
                     int district = Integer.parseInt(citizenDetails[6]);
                     char gender = Character.toUpperCase(citizenDetails[7].charAt(0));
 
@@ -95,108 +186,11 @@ public class MyProgramUtility {
         return arrayList;
     }// end of readDataFromCSV()
 
-    /**
-     * This method counts the total number of Citizens.
-     */
-    public void totalPopulation() {
-        ArrayList<Citizen> citizens = readDataFromCSV();
-        long totalPopulation = citizens.stream().count();
-        System.out.println(totalPopulation);
+    public static void main(String[] args) {
+        // Create a new AddCitizen object
+        AddCitizenGui addCitizen = new AddCitizenGui();
     }
-
-    /**
-     * This method counts the total number of Citizens who is a Resident.
-     */
-    public void countResidents() {
-        ArrayList<Citizen> citizens = readDataFromCSV();
-        int count = (int) citizens.stream().filter(x -> x.isResident() == true).count();
-        System.out.println(count);
-    }
-
-    /**
-     * This method counts the total number of Citizens who is a Non-Resident.
-     */
-    public void countNonResidents() {
-        ArrayList<Citizen> citizens = readDataFromCSV();
-        int count = (int) citizens.stream().filter(x -> x.isResident() == false).count();
-        System.out.println(count);
-    }
-
-    /**
-     * This method counts the total number of Citizens who has an age of 1-12.
-     *
-     * @return count;
-     */
-    public int childrenAge(ArrayList<Citizen> citizens) {
-        int count = 0;
-        for (Citizen citizen : citizens) {
-            if (citizen.getAge() >= 1 && citizen.getAge() <= 12) {
-                count++;
-            }
-        }
-        return count;
-    }
-
-    /**
-     * This method counts the total number of Citizens who has an age of 13-18.
-     *
-     * @return count;
-     */
-    public int teenageAge(ArrayList<Citizen> citizens) {
-        int count = 0;
-        for (Citizen citizen : citizens) {
-            if (citizen.getAge() >= 13 && citizen.getAge() <= 18) {
-                count++;
-            }
-        }
-        return count;
-    }
-
-    /**
-     * This method counts the total number of Citizens who has an age of 19-Above.
-     *
-     * @return count
-     */
-    public int adultAge(ArrayList<Citizen> citizens) {
-        int count = 0;
-        for (Citizen citizen : citizens) {
-            if (citizen.getAge() >= 19) {
-                count++;
-            }
-        }
-        return count;
-    }
-
-    /**
-     * This method counts the total number of Citizens who identifies as a MALE.
-     *
-     * @return count
-     */
-    public int countMales(ArrayList<Citizen> citizens) {
-        int count = 0;
-        for (Citizen citizen : citizens) {
-            if (citizen.getGender() == 'M') {
-                count++;
-            }
-        }
-        return count;
-    }
-
-    /**
-     * This method counts the total number of Citizens who identifies as a FEMALE.
-     *
-     * @return count
-     */
-    public int countFemales(ArrayList<Citizen> citizens) {
-        int count = 0;
-        for (Citizen citizen : citizens) {
-            if (citizen.getGender() == 'F') {
-                count++;
-            }
-        }
-        return count;
-    }
-}//end of class
+}
 
 
 

@@ -1,5 +1,7 @@
 package prog2.finalgroup;
 
+import java.util.ArrayList;
+
 public class Citizen implements Comparable<Citizen> {
     /**
      * This is coded by JERWIN RAMOS at April 26, 2023
@@ -17,7 +19,7 @@ public class Citizen implements Comparable<Citizen> {
      *This is a Default Constructor of Citizen
     */
     public Citizen(){
-        fullName = "";
+        fullName="";
         email = "";
         address = "";
         age = 1;
@@ -110,8 +112,18 @@ public class Citizen implements Comparable<Citizen> {
      * @return String;
      */
     public String toString(){
-        return fullName +","+email+","+address+","+age+","+resident+","+district+","+gender;
+        String[] result;
+        result = fullName.split(" ", 2);
+
+         if (address.contains(",")) {
+             return result[0] + "," + result[1] +"," + email + ",\"" + address + "\""+ "," + age + "," + resident + "," + district + "," + gender;
+         } else{
+             return result[0] + "," + result[1] +","  + email + "," + address + ","+ age + "," + resident + "," + district + "," + gender;
+         }
     }
+
+
+
     @Override
     public int compareTo(Citizen another) {
         return (this.fullName.compareToIgnoreCase(another.getFullName()));
