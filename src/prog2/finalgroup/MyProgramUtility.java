@@ -7,16 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class MyProgramUtility {
-    public static void main(String[] args) {
-        MyProgramUtility program = new MyProgramUtility();
-        program.run();
-    }//end of main
-
-    public void run() {
-        ArrayList<Citizen> citizenArrayList = readDataFromCSV();
-        citizenArrayList.stream().forEach(System.out::println);
-    }//end of run
-
+    //constructors
     public ArrayList<Citizen> readDataFromCSV() {
         ArrayList<Citizen> arrayList = new ArrayList<>(); //instantiation of the ArrayList<Citizen>
 

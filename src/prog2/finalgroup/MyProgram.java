@@ -1,13 +1,17 @@
 package prog2.finalgroup;
 
-public class MyProgram extends Citizen{
+public class MyProgram {
+    //constructor for MyProgram class
+    //GUI is placed here
+    public MyProgram(){
+
+    }
+
+
+
+
     public static void main(String[] args) {
         MyProgram program = new MyProgram();
-        program.run();
-    }
+    }//end of main method
 
-    public void run(){
-
-    }
-
-}
+}//end of MyProgram class

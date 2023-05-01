@@ -1,4 +1,6 @@
-package prog2.finalgroup;
+package prog2.finalgroup.Components;
+
+import prog2.finalgroup.Citizen;
 
 import java.awt.*;
 import java.awt.event.*;
