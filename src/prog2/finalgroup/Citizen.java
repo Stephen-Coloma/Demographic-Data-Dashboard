@@ -115,6 +115,12 @@ public class Citizen implements Comparable<Citizen> {
         String[] result;
         result = fullName.split(" ", 2);
 
+        String resident;
+        if (isResident()){
+            resident = "Resident";
+        }else
+            resident = "Non-Resident";
+
          if (address.contains(",")) {
              return result[0] + "," + result[1] +"," + email + ",\"" + address + "\""+ "," + age + "," + resident + "," + district + "," + gender;
          } else{

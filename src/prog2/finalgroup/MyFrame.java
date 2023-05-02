@@ -1,11 +1,18 @@
 package prog2.finalgroup;
 
+import prog2.finalgroup.Components.CitizenSorting;
 import prog2.finalgroup.Components.CitizenSearchPanel;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class MyFrame extends JFrame {
+
+    /**
+     * Header size: 30
+     * FRAME SIZE: 1000 by 600
+     * Left Panel: 80 by 570
+     * Right panel: 920 by 570*/
 
     public MyFrame() {
         // Set the size of the frame
@@ -66,17 +73,19 @@ public class MyFrame extends JFrame {
         //eto yung papalitan ng search bar
         MyProgramUtility myProgramUtility = new MyProgramUtility();
         CitizenSearchPanel searchBar = new CitizenSearchPanel(myProgramUtility.readDataFromCSV());
-        searchBar.setBounds(245,80,400,90);
+        searchBar.setBounds(225,80,450,90);
 //        button.setLocation(100,100);
 
         //----------------------------------------------------------------------------------------------
 
+        CitizenSorting citizenPanel = new CitizenSorting(myProgramUtility.readDataFromCSV());
+        citizenPanel.setLocation(55,180);
+        citizenPanel.setVisible(true);
 
-        //adding components to the right panel
+        //adding elements to right panel
+        rightPanel.add(citizenPanel);
         rightPanel.add(titleLabel);
         rightPanel.add(searchBar);
-
-
 
 
 
