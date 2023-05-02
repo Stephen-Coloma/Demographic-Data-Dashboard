@@ -9,12 +9,12 @@ import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.ArrayList;
 
-public class AddCitizenGui extends JFrame implements ActionListener {
+public class AddCitizen extends JFrame implements ActionListener {
     private JTextField firstNameField,lastNameField,emailField, addressField, districtField, genderField,residencyField, ageField;
     private JLabel firstNameLabel,lastNameLabel, emailLabel, addressLabel, districtLabel, genderLabel, residencyLabel, ageLabel;
     private JButton addButton;
 
-    public AddCitizenGui() {
+    public AddCitizen() {
         // Set up the JFrame
         setTitle("Add New Citizen");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -190,7 +190,7 @@ public class AddCitizenGui extends JFrame implements ActionListener {
 
     public static void main(String[] args) {
         // Create a new AddCitizen object
-        AddCitizenGui addCitizen = new AddCitizenGui();
+        AddCitizen addCitizen = new AddCitizen();
     }
 }
 
