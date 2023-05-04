@@ -61,31 +61,35 @@ public class MyFrame extends JFrame {
         rightPanel.setLayout(null);
 
 
-
         // Create a label with the text "DEMOGRAPHIC DATA DASHBOARD" and a red border
         JLabel titleLabel = new JLabel("DEMOGRAPHIC DATA DASHBOARD");
         titleLabel.setForeground(Color.BLACK);
         titleLabel.setFont(new Font("Century Gothic", Font.BOLD, 35));
         titleLabel.setBounds(150,30, 600,35);
-//        titleLabel.setLocation(rightPanel.getLocation());
 
         //----------------------------------------------------------------------------------------------
-        //eto yung papalitan ng search bar
         MyProgramUtility myProgramUtility = new MyProgramUtility();
         CitizenSearchPanel searchBar = new CitizenSearchPanel(myProgramUtility.readDataFromCSV());
         searchBar.setBounds(225,80,450,90);
-//        button.setLocation(100,100);
 
         //----------------------------------------------------------------------------------------------
 
-        CitizenSorting citizenPanel = new CitizenSorting(myProgramUtility.readDataFromCSV());
-        citizenPanel.setLocation(55,180);
-        citizenPanel.setVisible(true);
+        CitizenSorting citizenSorting = new CitizenSorting(myProgramUtility.readDataFromCSV());
+        citizenSorting.setLocation(55,140);
+        citizenSorting.setVisible(true);
+        citizenSorting.setBackground(Color.WHITE);
+
+        //----------------------------------------------------------------------------------------------
+
 
         //adding elements to right panel
-        rightPanel.add(citizenPanel);
+        rightPanel.add(citizenSorting);
         rightPanel.add(titleLabel);
         rightPanel.add(searchBar);
+
+        //search bar Component Z Index
+        rightPanel.setComponentZOrder(searchBar,0);
+        rightPanel.setComponentZOrder(citizenSorting, 1);
 
 
 

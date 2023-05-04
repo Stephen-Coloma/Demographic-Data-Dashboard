@@ -56,7 +56,7 @@ public class CitizenSearchPanel extends JPanel {
                 searchField.getBorder(),
                 BorderFactory.createEmptyBorder(5, 8, 5, 10)
         ));
-        searchField.setFont(new Font("Century Gothic", Font.BOLD, 15));
+        searchField.setFont(new Font("Century Gothic", Font.BOLD, 13));
         searchField.setBackground(new Color(236,240,241));
         searchField.setText("Search People");
         searchField.setForeground(new Color(35, 35, 35, 255));
