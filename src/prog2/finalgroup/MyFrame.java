@@ -1,5 +1,6 @@
 package prog2.finalgroup;
 
+import prog2.finalgroup.Components.AddCitizen;
 import prog2.finalgroup.Components.CitizenSorting;
 import prog2.finalgroup.Components.CitizenSearchPanel;
 
@@ -59,6 +60,7 @@ public class MyFrame extends JFrame {
         rightPanel.setLocation(80, 0); //location x:80 ; y:0
         // Set the layout of the frame to null so that we can manually position the panels
         rightPanel.setLayout(null);
+        rightPanel.setBackground(Color.decode("#EFEFEF"));
 
 
         // Create a label with the text "DEMOGRAPHIC DATA DASHBOARD" and a red border
@@ -67,29 +69,60 @@ public class MyFrame extends JFrame {
         titleLabel.setFont(new Font("Century Gothic", Font.BOLD, 35));
         titleLabel.setBounds(150,30, 600,35);
 
-        //----------------------------------------------------------------------------------------------
+        //------SEARCH PANEL----------------------------------------------------------
         MyProgramUtility myProgramUtility = new MyProgramUtility();
         CitizenSearchPanel searchBar = new CitizenSearchPanel(myProgramUtility.readDataFromCSV());
         searchBar.setBounds(225,80,450,90);
 
-        //----------------------------------------------------------------------------------------------
+        //------CITIZEN SORT--------------------------------------------------------------------------
 
         CitizenSorting citizenSorting = new CitizenSorting(myProgramUtility.readDataFromCSV());
         citizenSorting.setLocation(55,140);
-        citizenSorting.setVisible(true);
-        citizenSorting.setBackground(Color.WHITE);
+        citizenSorting.setVisible(true); /**CHANGE THIS TO TRUEEEEE AFTER ALL*/
 
-        //----------------------------------------------------------------------------------------------
+        //------ADD CITIZEN--------------------------------------------------------------------------
+
+        AddCitizen addCitizen = new AddCitizen();
+        addCitizen.setLocation(55,165);
+        addCitizen.setVisible(false); /**CHANGE THIS TO TRUEEEEE AFTER ALL*/
+        //------------------------------------------------------------------------------------------
+
 
 
         //adding elements to right panel
-        rightPanel.add(citizenSorting);
-        rightPanel.add(titleLabel);
+        rightPanel.add(addCitizen);
+//        rightPanel.add(citizenSorting);
         rightPanel.add(searchBar);
+        rightPanel.add(titleLabel);
 
         //search bar Component Z Index
         rightPanel.setComponentZOrder(searchBar,0);
         rightPanel.setComponentZOrder(citizenSorting, 1);
+        rightPanel.setComponentZOrder(addCitizen, 1);
+
+
+
+
+
+        //----------BUTTON LISTENER--------------------------------------
+        btn1.addActionListener(e->{
+            citizenSorting.setVisible(true);
+            addCitizen.setVisible(false);
+        });
+
+        btn2.addActionListener(e->{
+            citizenSorting.setVisible(false);
+            addCitizen.setVisible(true);
+        });
+        //----------BUTTON LISTENER--------------------------------------
+
+
+
+
+
+
+
+
 
 
 

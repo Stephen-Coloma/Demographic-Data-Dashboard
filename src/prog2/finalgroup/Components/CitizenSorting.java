@@ -35,14 +35,14 @@ public class CitizenSorting extends JPanel {
 
         // Create top panel with sort label and sort menu
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        topPanel.setBackground(Color.WHITE);
+        topPanel.setBackground(Color.decode("#EFEFEF"));
         JLabel sortLabel = new JLabel("Sort data by:");
         sortLabel.setFont(new Font("Century Gothic", Font.ITALIC, 12));
         sortLabel.setBorder(new EmptyBorder(0, 0, 0, 5)); // adds a 5 px on right
         topPanel.add(sortLabel);
         sortMenu = new JComboBox<>(new String[]{"Name", "Email", "Address", "Age", "District", });
         sortMenu.setFont(new Font("Century Gothic", Font.BOLD, 12));
-        sortMenu.setBackground(new Color(0x89A4FF));
+        sortMenu.setBackground(Color.decode("#5A78FF"));
         sortMenu.setForeground(Color.WHITE);
         sortMenu.setFocusable(false);
         sortMenu.addActionListener(new ActionListener() {
@@ -102,9 +102,9 @@ public class CitizenSorting extends JPanel {
 
         // Create bottom panel with previous and next buttons
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        bottomPanel.setBackground(Color.WHITE);
+        bottomPanel.setBackground(Color.decode("#EFEFEF"));
         JButton prevButton = new JButton("Previous");
-        prevButton.setBackground(Color.decode("#5271FF"));
+        prevButton.setBackground(Color.decode("#5A78FF"));
         prevButton.setForeground(Color.WHITE);
         prevButton.setFont(new Font("Century Gothic", Font.BOLD, 13));
         prevButton.setBorderPainted(false);
@@ -118,7 +118,7 @@ public class CitizenSorting extends JPanel {
 
         bottomPanel.add(prevButton);
         JButton nextButton = new JButton("Next");
-        nextButton.setBackground(Color.decode("#5271FF"));
+        nextButton.setBackground(Color.decode("#5A78FF"));
         nextButton.setForeground(Color.WHITE);
         nextButton.setFont(new Font("Century Gothic", Font.BOLD, 13));
         nextButton.setBorderPainted(false);
