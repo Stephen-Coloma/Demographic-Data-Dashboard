@@ -89,28 +89,28 @@ public class MyProgramUtility {
     /**
      * This method counts the total number of Citizens.
      */
-    public void totalPopulation() {
+    public int totalPopulation() {
         ArrayList<Citizen> citizens = readDataFromCSV();
-        long totalPopulation = citizens.stream().count();
-        System.out.println(totalPopulation);
+        int totalPopulation = (int) citizens.stream().count();
+        return totalPopulation;
     }
 
     /**
      * This method counts the total number of Citizens who is a Resident.
      */
-    public void countResidents() {
+    public int countResidents() {
         ArrayList<Citizen> citizens = readDataFromCSV();
         int count = (int) citizens.stream().filter(x -> x.isResident() == true).count();
-        System.out.println(count);
+        return count;
     }
 
     /**
      * This method counts the total number of Citizens who is a Non-Resident.
      */
-    public void countNonResidents() {
+    public int countNonResidents() {
         ArrayList<Citizen> citizens = readDataFromCSV();
         int count = (int) citizens.stream().filter(x -> x.isResident() == false).count();
-        System.out.println(count);
+        return count;
     }
 
     /**
@@ -133,13 +133,9 @@ public class MyProgramUtility {
      *
      * @return count;
      */
-    public int teenageAge(ArrayList<Citizen> citizens) {
-        int count = 0;
-        for (Citizen citizen : citizens) {
-            if (citizen.getAge() >= 13 && citizen.getAge() <= 18) {
-                count++;
-            }
-        }
+    public int teenageCount() {
+        ArrayList<Citizen> citizens = readDataFromCSV();
+        int count = (int) citizens.stream().filter(x -> x.getAge()<=18 && x.getAge()>=13).count();
         return count;
     }
 
@@ -148,13 +144,9 @@ public class MyProgramUtility {
      *
      * @return count
      */
-    public int adultAge(ArrayList<Citizen> citizens) {
-        int count = 0;
-        for (Citizen citizen : citizens) {
-            if (citizen.getAge() >= 19) {
-                count++;
-            }
-        }
+    public int adultCount() {
+        ArrayList<Citizen> citizens = readDataFromCSV();
+        int count = (int) citizens.stream().filter(x -> x.getAge()>=19).count();
         return count;
     }
 
