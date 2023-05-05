@@ -121,6 +121,12 @@ public class Citizen implements Comparable<Citizen> {
         }else
             resident = "Non-Resident";
 
+        String gender;
+        if (this.gender == 'M'){
+            gender = "Male";
+        }else
+            gender = "Female";
+
          if (address.contains(",")) {
              return result[0] + "," + result[1] +"," + email + ",\"" + address + "\""+ "," + age + "," + resident + "," + district + "," + gender;
          } else{

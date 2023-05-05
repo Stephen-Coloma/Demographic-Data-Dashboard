@@ -20,7 +20,6 @@ public class CitizenSearchPanel extends JPanel {
     private ArrayList<Citizen> filteredCitizens;
 
     public CitizenSearchPanel(ArrayList<Citizen> citizens) {
-        setBackground(Color.BLACK);
         setOpaque(false);
         this.citizens = citizens;
         setLayout(new BorderLayout());
@@ -56,8 +55,8 @@ public class CitizenSearchPanel extends JPanel {
                 searchField.getBorder(),
                 BorderFactory.createEmptyBorder(5, 8, 5, 10)
         ));
-        searchField.setFont(new Font("Century Gothic", Font.BOLD, 15));
-        searchField.setBackground(new Color(236,240,241));
+        searchField.setFont(new Font("Century Gothic", Font.BOLD, 13));
+        searchField.setBackground(new Color(229, 229, 229, 255));
         searchField.setText("Search People");
         searchField.setForeground(new Color(35, 35, 35, 255));
         searchField.addFocusListener(new FocusAdapter() {
@@ -84,10 +83,10 @@ public class CitizenSearchPanel extends JPanel {
         resultModel = new DefaultListModel<>();
         resultList = new JList<>(resultModel);
         resultList.setFont(new Font("Century Gothic", Font.BOLD, 13));
+        resultList.setBackground(new Color(0,0,0,0));
         resultPane = new JScrollPane(resultList);
         resultPane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
         resultPane.setVisible(true); // Initially hide the pane
-
         add(resultPane, BorderLayout.CENTER);
 
         searchField.addKeyListener(new KeyListener() {
@@ -125,6 +124,7 @@ public class CitizenSearchPanel extends JPanel {
                     resultPane.setBackground(Color.BLUE);
                     resultPane.setOpaque(true);
                     resultPane.setBackground(new Color(0,0,0,0));
+                    resultList.setBackground(new Color(0,0,0,0));
 
                 }
                 resultPane.setOpaque(false);
