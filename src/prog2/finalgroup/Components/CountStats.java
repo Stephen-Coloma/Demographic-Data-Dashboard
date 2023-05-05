@@ -9,9 +9,7 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 public class CountStats extends JPanel {
-
-    Frame frame = new Frame();
-    Panel mainPanel = new Panel();
+    JPanel mainPanel = new JPanel();
     Panel panel1 = new Panel();
     Panel panel2 = new Panel();
     Panel panel3 = new Panel();
@@ -41,17 +39,14 @@ public class CountStats extends JPanel {
 
     public CountStats(){
 
-
-        frame.setSize(1000, 600);
-        mainPanel.setSize(800, 350);
-        frame.setVisible(true);
-        frame.add(mainPanel);
-        frame.setLocationRelativeTo(null);
+        setSize(800, 350);
+        setVisible(true);
+        mainPanel.setVisible(true);
 
         lbl1.setFont(new Font("Century Gothic", Font.BOLD, 12));
-        lbl2.setForeground(Color.white);
-        lbl3.setForeground(Color.white);
-        lbl4.setForeground(Color.white);
+        lbl2.setForeground(Color.decode("#EFEFEF"));
+        lbl3.setForeground(Color.decode("#EFEFEF"));
+        lbl4.setForeground(Color.decode("#EFEFEF"));
 
         MyProgramUtility myProgramUtility = new MyProgramUtility();
         String populationCount = String.valueOf(myProgramUtility.totalPopulation());
@@ -221,11 +216,34 @@ public class CountStats extends JPanel {
         gbc.gridwidth = 2;
         mainPanel.add(panel8, gbc);
 
-        frame.pack();
+
+        add(mainPanel);
     }
-    public static void main(String[] args) {
-        new  CountStats();
+
+
+    class RoundedPanel extends JPanel {
+        private int arcWidth;
+        private int arcHeight;
+        private Color backgroundColor;
+
+        public RoundedPanel(int arcWidth, int arcHeight, Color backgroundColor) {
+            this.arcWidth = arcWidth;
+            this.arcHeight = arcHeight;
+            this.backgroundColor = backgroundColor;
+            setOpaque(false);
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            Graphics2D g2 = (Graphics2D) g;
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2.setColor(backgroundColor);
+            g2.fillRoundRect(0, 0, getWidth(), getHeight(), arcWidth, arcHeight);
+        }
     }
 }
+
+
+
 
 
