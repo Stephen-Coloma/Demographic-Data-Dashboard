@@ -79,13 +79,13 @@ public class MyFrame extends JFrame {
         //------CITIZEN SORT--------------------------------------------------------------------------
 
         CitizenSorting citizenSorting = new CitizenSorting(myProgramUtility.readDataFromCSV());
-        citizenSorting.setLocation(55,140);
+        citizenSorting.setLocation(40,140);
         citizenSorting.setVisible(true); /**CHANGE THIS TO TRUEEEEE AFTER ALL*/
 
         //--------COUNT STATS----------------------------------------------------------------------
 
         CountStats countStats = new CountStats();
-        countStats.setLocation(55,165);
+        countStats.setLocation(25,120);
         countStats.setVisible(false);
         //------ADD CITIZEN--------------------------------------------------------------------------
 

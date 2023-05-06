@@ -5,7 +5,6 @@ import prog2.finalgroup.Citizen;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.metal.MetalComboBoxUI;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -28,7 +27,7 @@ public class CitizenSorting extends JPanel {
         super(new BorderLayout());
 
         //your JPanel size
-        setSize(800, 383);
+        setSize(830, 383);
         setVisible(true);
         this.citizens = citizens;
         this.startIndex = 0;
@@ -37,7 +36,7 @@ public class CitizenSorting extends JPanel {
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         topPanel.setBackground(Color.decode("#EFEFEF"));
         JLabel sortLabel = new JLabel("Sort data by:");
-        sortLabel.setFont(new Font("Century Gothic", Font.ITALIC, 12));
+        sortLabel.setFont(new Font("Century Gothic", Font.ITALIC, 15));
         sortLabel.setBorder(new EmptyBorder(0, 0, 0, 5)); // adds a 5 px on right
         topPanel.add(sortLabel);
         sortMenu = new JComboBox<>(new String[]{"Name", "Email", "Address", "Age", "District", });

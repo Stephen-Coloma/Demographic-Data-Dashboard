@@ -1,140 +1,144 @@
 package prog2.finalgroup.Components;
 
-import prog2.finalgroup.Citizen;
 import prog2.finalgroup.MyProgramUtility;
-import java.util.Date;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
 
 public class CountStats extends JPanel {
-    JPanel mainPanel = new JPanel();
-    Panel panel1 = new Panel();
-    Panel panel2 = new Panel();
-    Panel panel3 = new Panel();
-    Panel panel4 = new Panel();
-    RoundedPanel panel5 = new RoundedPanel(20, 20, new Color(34,	52,	134));
-    RoundedPanel panel6 = new RoundedPanel(20, 20, new Color(82,	113, 255));
+    JPanel panel1 = new JPanel();
+    JPanel panel2 = new JPanel();
+    JPanel panel3 = new JPanel();
+    JPanel panel4 = new JPanel();
+    RoundedPanel panel5 = new RoundedPanel(20, 20, new Color(34, 52, 134));
+    RoundedPanel panel6 = new RoundedPanel(20, 20, new Color(82, 113, 255));
     RoundedPanel panel7 = new RoundedPanel(20, 20, new Color(136, 191, 255));
     RoundedPanel panel8 = new RoundedPanel(20, 20, new Color(144, 217, 255));
     JPanel panel5a = new JPanel(new GridLayout(2,1));
-    Label populationLabel;
-    Label totalPopulationLabel;
-    JPanel panel6a = new JPanel(new GridLayout(2, 2));
-    Label teenagerPopulationLabel;
-    Label teenagerPopulationCount;
-    Label adultPopulationLabel;
-    Label adultPopulationCount;
+    JLabel populationLabel;
+    JLabel totalPopulationLabel;
+    JPanel panel6a = new JPanel(new GridLayout(2, 3));
+    JLabel teenagerPopulationLabel;
+    JLabel teenagerPopulationCount;
+    JLabel adultPopulationLabel;
+    JLabel adultPopulationCount;
     JPanel panel7a = new JPanel(new GridLayout(2, 1));
-    Label residentLabel;
-    Label residentCount;
+    JLabel residentLabel;
+    JLabel residentCount;
     JPanel panel8a = new JPanel(new GridLayout(2, 1));
-    Label nonResidentLabel;
-    Label nonResidentCount;
-    Label lbl1 = new Label("Data as of "+ java.time.LocalDateTime.now()+"." );
-    Label lbl2 = new Label("Data as of 05/02/2023");
-    Label lbl3 = new Label("Data as of 05/02/2023");
-    Label lbl4 = new Label("Data as of 05/02/2023");
+    JLabel nonResidentLabel;
+    JLabel nonResidentCount;
+    LocalDate currentDate = LocalDate.now();
+    static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d, yyyy");
+    JLabel lbl1 = new JLabel("Data as of "+ currentDate.format(formatter)+"." );
+    JLabel lbl2 = new JLabel("Data as of 05/02/2023");
+    JLabel lbl3 = new JLabel("Data as of 05/02/2023");
 
     public CountStats(){
-
-        setSize(800, 350);
+        setSize(850, 420);
         setVisible(true);
-        mainPanel.setVisible(true);
 
-        lbl1.setFont(new Font("Century Gothic", Font.BOLD, 12));
+
+        lbl1.setFont(new Font("Century Gothic", Font.ITALIC, 15));
         lbl2.setForeground(Color.decode("#EFEFEF"));
         lbl3.setForeground(Color.decode("#EFEFEF"));
-        lbl4.setForeground(Color.decode("#EFEFEF"));
 
         MyProgramUtility myProgramUtility = new MyProgramUtility();
         String populationCount = String.valueOf(myProgramUtility.totalPopulation());
 
-        populationLabel = new Label("Total Population: ");
-        populationLabel.setAlignment(Label.CENTER);
-        populationLabel.setFont(new Font("Century Gothic",Font.CENTER_BASELINE, 16));
-        populationLabel.setBackground(new Color(34,	52,	134));
+        populationLabel = new JLabel("Population: ");
+        populationLabel.setAlignmentX(Label.CENTER);
+        populationLabel.setFont(new Font("Century Gothic",Font.CENTER_BASELINE, 26));
+        populationLabel.setBackground(new Color(34, 52, 134));
         populationLabel.setForeground(Color.white);
 
-        totalPopulationLabel = new Label(populationCount);
-        totalPopulationLabel.setAlignment(Label.CENTER);
-        totalPopulationLabel.setFont(new Font("Century Gothic",Font.CENTER_BASELINE, 25));
-        totalPopulationLabel.setBackground(new Color(34,	52,	134));
+        totalPopulationLabel = new JLabel(populationCount);
+        totalPopulationLabel.setAlignmentX(Label.CENTER);
+        totalPopulationLabel.setFont(new Font("Century Gothic",Font.CENTER_BASELINE, 30)); //steph
+        totalPopulationLabel.setBackground(new Color(34, 52, 134));
         totalPopulationLabel.setForeground(Color.white);
 
         panel5.setBorder(BorderFactory.createEmptyBorder(32, 0, 0, 0));
         panel5a.add(populationLabel);
         panel5a.add(totalPopulationLabel);
+        panel5a.setBackground(new Color(0,0,0,0));
         panel5.add(panel5a);
 
-        teenagerPopulationLabel = new Label("Number of Teenagers: ");
-        teenagerPopulationLabel.setAlignment(Label.CENTER);
-        teenagerPopulationLabel.setFont(new Font("Century Gothic",Font.CENTER_BASELINE, 18));
-        teenagerPopulationLabel.setBackground(new Color(82,	113,	255));
+        teenagerPopulationLabel = new JLabel("Teenagers count: ");
+        teenagerPopulationLabel.setAlignmentX(Label.CENTER);
+        teenagerPopulationLabel.setFont(new Font("Century Gothic",Font.CENTER_BASELINE, 20));
+        teenagerPopulationLabel.setBackground(new Color(82, 113, 255));
         teenagerPopulationLabel.setForeground(Color.white);
 
         String teenagerCount = String.valueOf(myProgramUtility.teenageCount());
-        teenagerPopulationCount = new Label(teenagerCount);
-        teenagerPopulationCount.setAlignment(Label.CENTER);
-        teenagerPopulationCount.setFont(new Font("Century Gothic",Font.CENTER_BASELINE, 25));
-        teenagerPopulationCount.setBackground(new Color(82,	113,	255));
+        teenagerPopulationCount = new JLabel(teenagerCount);
+        teenagerPopulationCount.setAlignmentX(Label.CENTER);
+        teenagerPopulationCount.setFont(new Font("Century Gothic",Font.CENTER_BASELINE, 27));
+        teenagerPopulationCount.setBackground(new Color(82, 113, 255));
         teenagerPopulationCount.setForeground(Color.white);
 
-        adultPopulationLabel = new Label("Number of Adults: ");
-        adultPopulationLabel.setAlignment(Label.CENTER);
-        adultPopulationLabel.setFont(new Font("Century Gothic",Font.CENTER_BASELINE, 18));
-        adultPopulationLabel.setBackground(new Color(82,	113,	255));
+        adultPopulationLabel = new JLabel("Adults count: ");
+        adultPopulationLabel.setAlignmentX(Label.CENTER);
+        adultPopulationLabel.setFont(new Font("Century Gothic",Font.CENTER_BASELINE, 20));
+        adultPopulationLabel.setBackground(new Color(82, 113, 255));
         adultPopulationLabel.setForeground(Color.white);
 
         String adultCount = String.valueOf(myProgramUtility.adultCount());
-        adultPopulationCount = new Label(adultCount);
-        adultPopulationCount.setAlignment(Label.CENTER);
-        adultPopulationCount.setFont(new Font("Century Gothic",Font.CENTER_BASELINE, 25));
-        adultPopulationCount.setBackground(new Color(82,	113,	255));
+        adultPopulationCount = new JLabel(adultCount);
+        adultPopulationCount.setAlignmentX(Label.CENTER);
+        adultPopulationCount.setFont(new Font("Century Gothic",Font.CENTER_BASELINE, 27));
+        adultPopulationCount.setBackground(new Color(82, 113, 255));
         adultPopulationCount.setForeground(Color.white);
+
 
         panel6.setBorder(BorderFactory.createEmptyBorder(35, 0, 0, 0));
         panel6a.add(teenagerPopulationLabel);
+        panel6a.add(new JLabel());
         panel6a.add(adultPopulationLabel);
         panel6a.add(teenagerPopulationCount);
+        panel6a.add(new JLabel());
         panel6a.add(adultPopulationCount);
+        panel6a.setBackground(new Color(0,0,0,0));
         panel6.add(panel6a);
 
-        residentLabel = new Label("Residents: ");
-        residentLabel.setAlignment(Label.CENTER);
-        residentLabel.setFont(new Font("Century Gothic",Font.CENTER_BASELINE, 31));
+        residentLabel = new JLabel("Non-Residents: ");
+        residentLabel.setAlignmentX(Label.CENTER);
+        residentLabel.setFont(new Font("Century Gothic",Font.CENTER_BASELINE, 25));
         residentLabel.setBackground(new Color(136, 191, 255));
         residentLabel.setForeground(Color.white);
 
-        String residents = String.valueOf(myProgramUtility.countResidents());
-        residentCount = new Label(residents);
-        residentCount.setAlignment(Label.CENTER);
-        residentCount.setFont(new Font("Century Gothic",Font.CENTER_BASELINE, 30));
+        String residents = String.valueOf(myProgramUtility.countNonResidents());
+        residentCount = new JLabel(residents);
+        residentCount.setAlignmentX(Label.CENTER);
+        residentCount.setFont(new Font("Century Gothic",Font.CENTER_BASELINE, 27));
         residentCount.setBackground(new Color(136, 191, 255));
         residentCount.setForeground(Color.white);
 
         panel7.setBorder(BorderFactory.createEmptyBorder(40, 0, 0, 0));
         panel7a.add(residentLabel);
         panel7a.add(residentCount);
+        panel7a.setBackground(new Color(0,0,0,0));
         panel7.add(panel7a);
 
-        nonResidentLabel = new Label("Non-Residents: ");
-        nonResidentLabel.setAlignment(Label.CENTER);
-        nonResidentLabel.setFont(new Font("Century Gothic",Font.CENTER_BASELINE, 30));
+        nonResidentLabel = new JLabel("Residents: ");
+        nonResidentLabel.setAlignmentX(Label.CENTER);
+        nonResidentLabel.setFont(new Font("Century Gothic",Font.CENTER_BASELINE, 26));
         nonResidentLabel.setBackground(new Color(144, 217, 255));
         nonResidentLabel.setForeground(Color.white);
 
-        String nonResidents = String.valueOf(myProgramUtility.countNonResidents());
-        nonResidentCount = new Label(nonResidents);
-        nonResidentCount.setAlignment(Label.CENTER);
-        nonResidentCount.setFont(new Font("Century Gothic",Font.CENTER_BASELINE, 30));
+        String nonResidents = String.valueOf(myProgramUtility.countResidents());
+        nonResidentCount = new JLabel(nonResidents);
+        nonResidentCount.setAlignmentX(Label.CENTER);
+        nonResidentCount.setFont(new Font("Century Gothic",Font.CENTER_BASELINE, 27));
         nonResidentCount.setBackground(new Color(144, 217, 255));
         nonResidentCount.setForeground(Color.white);
 
         panel8.setBorder(BorderFactory.createEmptyBorder(40, 0, 0, 0));
         panel8a.add(nonResidentLabel);
         panel8a.add(nonResidentCount);
+        panel8a.setBackground(new Color(0,0,0,0));
         panel8.add(panel8a);
 
         panel1.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -144,13 +148,12 @@ public class CountStats extends JPanel {
 
         panel3.add(lbl3);
 
-        panel4.add(lbl4);
 
 
         GridBagLayout gbl = new GridBagLayout();
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.NONE;
-        mainPanel.setLayout(gbl);
+        setLayout(gbl);
 
         gbc.anchor = GridBagConstraints.PAGE_START;
         gbc.fill = GridBagConstraints.BOTH;
@@ -158,7 +161,7 @@ public class CountStats extends JPanel {
         gbc.gridy = 0;
         gbc.ipadx = 50;
         gbc.ipady = 10;
-        mainPanel.add(panel1, gbc);
+        add(panel1, gbc);
 
         gbc.anchor = GridBagConstraints.PAGE_START;
         gbc.fill = GridBagConstraints.BOTH;
@@ -166,7 +169,7 @@ public class CountStats extends JPanel {
         gbc.gridy = 0;
         gbc.ipadx = 50;
         gbc.ipady = 10;
-        mainPanel.add(panel2, gbc);
+        add(panel2, gbc);
 
         gbc.anchor = GridBagConstraints.PAGE_START;
         gbc.fill = GridBagConstraints.BOTH;
@@ -174,7 +177,7 @@ public class CountStats extends JPanel {
         gbc.gridy = 0;
         gbc.ipadx = 50;
         gbc.ipady = 10;
-        mainPanel.add(panel3, gbc);
+        add(panel3, gbc);
 
         gbc.anchor = GridBagConstraints.PAGE_START;
         gbc.fill = GridBagConstraints.BOTH;
@@ -182,7 +185,7 @@ public class CountStats extends JPanel {
         gbc.gridy = 0;
         gbc.ipadx = 50;
         gbc.ipady = 10;
-        mainPanel.add(panel4, gbc);
+        add(panel4, gbc);
 
         gbc.fill = GridBagConstraints.BOTH;
         gbc.insets = new Insets(5,5,5,5);
@@ -190,7 +193,7 @@ public class CountStats extends JPanel {
         gbc.gridy = 1;
         gbc.ipadx = 50;
         gbc.ipady = 20;
-        mainPanel.add(panel5, gbc);
+        add(panel5, gbc);
 
         gbc.fill = GridBagConstraints.BOTH;
         gbc.insets = new Insets(5,5,5,5);
@@ -198,7 +201,7 @@ public class CountStats extends JPanel {
         gbc.gridy = 1;
         gbc.ipady = 20;
         gbc.gridwidth = 3;
-        mainPanel.add(panel6, gbc);
+        add(panel6, gbc);
 
         gbc.fill = GridBagConstraints.BOTH;
         gbc.insets = new Insets(5,5,5,5);
@@ -206,7 +209,7 @@ public class CountStats extends JPanel {
         gbc.gridy = 2;
         gbc.ipady = 50;
         gbc.gridwidth =2;
-        mainPanel.add(panel7, gbc);
+        add(panel7, gbc);
 
         gbc.fill = GridBagConstraints.BOTH;
         gbc.insets = new Insets(5,5,5,5);
@@ -214,10 +217,10 @@ public class CountStats extends JPanel {
         gbc.gridy = 2;
         gbc.ipady = 50;
         gbc.gridwidth = 2;
-        mainPanel.add(panel8, gbc);
+        add(panel8, gbc);
 
 
-        add(mainPanel);
+//        add(mainPanel);
     }
 
 
