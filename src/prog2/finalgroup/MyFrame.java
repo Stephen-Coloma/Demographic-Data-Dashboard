@@ -63,7 +63,6 @@ public class MyFrame extends JFrame {
         // Set the layout of the frame to null so that we can manually position the panels
         rightPanel.setLayout(null);
         rightPanel.setBackground(Color.decode("#EFEFEF"));
-        rightPanel.setBorder(new LineBorder(Color.BLACK, 2));
 
 
         // Create a label with the text "DEMOGRAPHIC DATA DASHBOARD" and a red border
@@ -83,16 +82,17 @@ public class MyFrame extends JFrame {
         citizenSorting.setLocation(55,140);
         citizenSorting.setVisible(true); /**CHANGE THIS TO TRUEEEEE AFTER ALL*/
 
-        //------ADD CITIZEN--------------------------------------------------------------------------
-
-        AddCitizen addCitizen = new AddCitizen();
-        addCitizen.setLocation(55,165);
-        addCitizen.setVisible(false); /**CHANGE THIS TO TRUEEEEE AFTER ALL*/
         //--------COUNT STATS----------------------------------------------------------------------
 
         CountStats countStats = new CountStats();
         countStats.setLocation(55,165);
-        countStats.setVisible(false); /**CHANGE THIS TO TRUEEEEE AFTER ALL*/
+        countStats.setVisible(false);
+        //------ADD CITIZEN--------------------------------------------------------------------------
+
+        AddCitizen addCitizen = new AddCitizen();
+        addCitizen.setLocation(55,170);
+        addCitizen.setVisible(false);
+
         //------------------------------------------------------------------------------------------
 
 
@@ -124,13 +124,13 @@ public class MyFrame extends JFrame {
 
         btn2.addActionListener(e->{
             citizenSorting.setVisible(false);
-            addCitizen.setVisible(true);
-            countStats.setVisible(false);
+            addCitizen.setVisible(false);
+            countStats.setVisible(true);
         });
         btn3.addActionListener(e->{
             citizenSorting.setVisible(false);
-            addCitizen.setVisible(false);
-            countStats.setVisible(true);
+            addCitizen.setVisible(true);
+            countStats.setVisible(false);
         });
         //----------BUTTON LISTENER--------------------------------------
 
