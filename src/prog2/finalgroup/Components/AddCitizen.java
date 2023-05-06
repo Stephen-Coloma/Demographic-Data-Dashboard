@@ -73,47 +73,59 @@ public class AddCitizen extends JPanel {
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
         addButton = new JButton("Add");
         addButton.addActionListener(e->{
+            // Get the values from the text fields
+            String firstName = firstNameTextField.getText();
+            String lastName = lastNameTextField.getText();
+            String email = emailTextField.getText();
+            String address = addressTextField.getText();
+            String ageStr = ageTextField.getText();
+            String districtStr = districtTextField.getText();
+
+            // Validate required fields
+            if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || ageStr.isEmpty() || districtStr.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please fill in all required fields");
+                return;
+            }
+
+            // Parse integer fields
+            int age = 0;
+            int district = 0;
+            try {
+                age = Integer.parseInt(ageStr);
+                district = Integer.parseInt(districtStr);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Age and district must be a number");
+                return;
+            }
+
+            // Get values from combo boxes
+            String genderStr = (String) genderComboBox.getSelectedItem();
+            String residencyStr = (String) residencyComboBox.getSelectedItem();
+
+            // Validate optional fields
+            if (genderStr == null || residencyStr == null) {
+                JOptionPane.showMessageDialog(this, "Please select a value for all fields");
+                return;
+            }
+
+            // Create a new Citizen object with the values
+            String fullName =  lastName + " " + firstName;
+            char gender = genderStr.equals("Male") ? 'M' : 'F';
+            boolean residency = residencyStr.equals("Resident");
+            Citizen newCitizen = new Citizen(fullName, email, address, age, residency, district, gender);
+
+            // Write the new Citizen to the file
             MyProgramUtility myProgramUtility = new MyProgramUtility();
             ArrayList<Citizen> addCitizen = myProgramUtility.readDataFromCSV();
             try (FileWriter writer = new FileWriter("res/data.csv")) {
-                if (e.getSource() == addButton) {
-                    // Get the values from the text fields
-                    String fullName =  lastNameTextField.getText() + " " + firstNameTextField.getText();
-                    String email = emailTextField.getText();
-                    String address = addressTextField.getText();
-                    int district = Integer.parseInt(districtTextField.getText());
-
-                    char gender;
-                    int genderComboBoxSelectedIndex = genderComboBox.getSelectedIndex();
-                    if (genderComboBoxSelectedIndex == 0){
-                        gender = 'M';
-                    }else
-                        gender = 'F';
-
-                    boolean residency;
-                    int residencyComboBoxSelectedIndex = residencyComboBox.getSelectedIndex();
-                    if (residencyComboBoxSelectedIndex == 0){
-                        residency = true;
-                    }else
-                        residency=false;
-
-
-
-                    int age = Integer.parseInt(ageTextField.getText());
-
-                    // Create a new Citizen object with the values
-                    Citizen newCitizen = new Citizen(fullName, email, address, age, residency, district, gender);
-                    addCitizen.add(newCitizen);
-
-                    for (int i = 0; i<addCitizen.size(); i++){
-                        writer.write(addCitizen.get(i).toString());
-                        writer.write("\n");
-                    }
-
-                    // Display a message to the user that the new citizen was added
-                    JOptionPane.showMessageDialog(this, "New citizen added: " + newCitizen);
-
+                addCitizen.add(newCitizen);
+                for (int i = 0; i < addCitizen.size(); i++){
+                    writer.write(addCitizen.get(i).toString());
+                    writer.write("\n");
                 }
+
+                // Display a message to the user that the new citizen was added
+                JOptionPane.showMessageDialog(this, "New citizen added: " + newCitizen);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
