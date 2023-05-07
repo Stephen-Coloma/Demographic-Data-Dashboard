@@ -8,6 +8,11 @@ import prog2.finalgroup.Components.CountStats;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class MyFrame extends JFrame {
 
@@ -23,8 +28,10 @@ public class MyFrame extends JFrame {
 
         // Create a left panel with a width of 50 and color it yellow
         JPanel leftPanel = new JPanel();
-        leftPanel.setBackground(Color.YELLOW);
+        leftPanel.setBackground(new Color(103, 148, 255));
+//        leftPanel.setBackground(Color.decode("#5692d7"));
         leftPanel.setSize(80, getHeight()-30);
+
 
         // Create 5 buttons with the given names
         JButton btn1 = new JButton("1");
@@ -32,22 +39,27 @@ public class MyFrame extends JFrame {
         JButton btn3 = new JButton("3");
         JButton btn4 = new JButton("4");
 
+
+
         //Create the 2 vertical JSeparator
         JSeparator v1 = new JSeparator(SwingConstants.VERTICAL);
-        JSeparator v2 = new JSeparator(SwingConstants.VERTICAL);
+//        JSeparator v2 = new JSeparator(SwingConstants.VERTICAL);
 
         // Set the layout of the left panel to a GridLayout with 5 rows and 1 column
-        GridLayout layout = new GridLayout(6, 1);
+        GridLayout layout = new GridLayout(7, 1);
         layout.setVgap(10);
         leftPanel.setLayout(layout);
 
         // Add the buttons to the left panel
-        leftPanel.add(v1);
+//        leftPanel.add(v1);
+        leftPanel.add(new JLabel());
+        leftPanel.add(new JLabel());
         leftPanel.add(btn1);
         leftPanel.add(btn2);
         leftPanel.add(btn3);
         leftPanel.add(btn4);
-        leftPanel.add(v2);
+        leftPanel.add(new JLabel());
+//        leftPanel.add(v2);
 
         // Set the horizontal alignment of the buttons to center
         btn1.setHorizontalAlignment(JButton.CENTER);
@@ -66,10 +78,11 @@ public class MyFrame extends JFrame {
 
 
         // Create a label with the text "DEMOGRAPHIC DATA DASHBOARD" and a red border
-        JLabel titleLabel = new JLabel("DEMOGRAPHIC DATA DASHBOARD");
-        titleLabel.setForeground(Color.BLACK);
-        titleLabel.setFont(new Font("Century Gothic", Font.BOLD, 35));
-        titleLabel.setBounds(150,30, 600,35);
+
+
+        ImageIcon icon = new ImageIcon("res/images/title.png");
+        JLabel titleLabel = new JLabel(icon);
+        titleLabel.setBounds(50,5, 800,80);
 
         //------SEARCH PANEL----------------------------------------------------------
         MyProgramUtility myProgramUtility = new MyProgramUtility();
@@ -90,7 +103,7 @@ public class MyFrame extends JFrame {
         //------ADD CITIZEN--------------------------------------------------------------------------
 
         AddCitizen addCitizen = new AddCitizen();
-        addCitizen.setLocation(55,170);
+        addCitizen.setLocation(45,130);
         addCitizen.setVisible(false);
 
         //------------------------------------------------------------------------------------------
@@ -161,6 +174,7 @@ public class MyFrame extends JFrame {
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
+
 
     public static void main(String[] args) {
         new MyFrame();

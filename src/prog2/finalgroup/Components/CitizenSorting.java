@@ -36,7 +36,7 @@ public class CitizenSorting extends JPanel {
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         topPanel.setBackground(Color.decode("#EFEFEF"));
         JLabel sortLabel = new JLabel("Sort data by:");
-        sortLabel.setFont(new Font("Century Gothic", Font.ITALIC, 15));
+        sortLabel.setFont(new Font("Century Gothic", Font.ITALIC | Font.BOLD, 15));
         sortLabel.setBorder(new EmptyBorder(0, 0, 0, 5)); // adds a 5 px on right
         topPanel.add(sortLabel);
         sortMenu = new JComboBox<>(new String[]{"Name", "Email", "Address", "Age", "District", });
