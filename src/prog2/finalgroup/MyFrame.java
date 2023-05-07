@@ -103,7 +103,7 @@ public class MyFrame extends JFrame {
         //------ADD CITIZEN--------------------------------------------------------------------------
 
         AddCitizen addCitizen = new AddCitizen();
-        addCitizen.setLocation(45,130);
+        addCitizen.setLocation(45,160);
         addCitizen.setVisible(false);
 
         //------------------------------------------------------------------------------------------
