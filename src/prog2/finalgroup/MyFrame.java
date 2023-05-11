@@ -15,6 +15,15 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class MyFrame extends JFrame {
+    MyProgramUtility myProgramUtility = new MyProgramUtility();
+
+    private JPanel rightPanel;
+
+    private JPanel searchBar;
+    private JPanel countStats;
+    private JPanel citizenSorting;
+    private JPanel addCitizen;
+
 
     /**
      * Header size: 30
@@ -68,7 +77,7 @@ public class MyFrame extends JFrame {
         btn4.setHorizontalAlignment(JButton.CENTER);
 
         // Create a right panel with a width of 650 and color it blue
-        JPanel rightPanel = new JPanel();
+        rightPanel = new JPanel();
         rightPanel.setBackground(Color.WHITE);
         rightPanel.setSize(getWidth()-80, getHeight() - 30); //right panel height: 920; width: 570
         rightPanel.setLocation(80, 0); //location x:80 ; y:0
@@ -85,25 +94,22 @@ public class MyFrame extends JFrame {
         titleLabel.setBounds(50,5, 800,80);
 
         //------SEARCH PANEL----------------------------------------------------------
-        MyProgramUtility myProgramUtility = new MyProgramUtility();
-        CitizenSearchPanel searchBar = new CitizenSearchPanel(myProgramUtility.readDataFromCSV());
-        searchBar.setBounds(225,80,450,90);
-
-        //------CITIZEN SORT--------------------------------------------------------------------------
-
-        CitizenSorting citizenSorting = new CitizenSorting(myProgramUtility.readDataFromCSV());
-        citizenSorting.setLocation(40,140);
-        citizenSorting.setVisible(true); /**CHANGE THIS TO TRUEEEEE AFTER ALL*/
+        searchBar = createSearchbar();
+        searchBar.setVisible(true);
 
         //--------COUNT STATS----------------------------------------------------------------------
 
-        CountStats countStats = new CountStats();
-        countStats.setLocation(25,120);
-        countStats.setVisible(false);
+        countStats = createCountStats();
+        countStats.setVisible(true);
+
+        //------CITIZEN SORT--------------------------------------------------------------------------
+
+        citizenSorting = createCitizenSorting();
+        citizenSorting.setVisible(false);
+
         //------ADD CITIZEN--------------------------------------------------------------------------
 
-        AddCitizen addCitizen = new AddCitizen();
-        addCitizen.setLocation(45,160);
+        addCitizen = createAddCitizen();
         addCitizen.setVisible(false);
 
         //------------------------------------------------------------------------------------------
@@ -118,42 +124,66 @@ public class MyFrame extends JFrame {
         rightPanel.add(titleLabel);
 
 
-        //search bar Component Z Index
-        rightPanel.setComponentZOrder(searchBar,0);
-        rightPanel.setComponentZOrder(citizenSorting, 1);
-        rightPanel.setComponentZOrder(addCitizen, 1);
-        rightPanel.setComponentZOrder(countStats, 1);
-
-
-
+        setUpComponentZIndex(); // z index refresh
 
 
         //----------BUTTON LISTENER--------------------------------------
         btn1.addActionListener(e->{
-            citizenSorting.setVisible(true);
-            addCitizen.setVisible(false);
-            countStats.setVisible(false);
-        });
 
-        btn2.addActionListener(e->{
+            //removing the JPanel component in the right panel
+            rightPanel.remove(countStats);
+            countStats = null; //nullifying it
+
+            //creating a new object of the countStats JPanel with the same identifier
+            countStats = createCountStats();
+            rightPanel.add(countStats);
+
+            setUpSearchBar(); //search bar refresh
+
+
+            searchBar.setVisible(true);
             citizenSorting.setVisible(false);
             addCitizen.setVisible(false);
             countStats.setVisible(true);
+
+
+
+            setUpComponentZIndex(); // z index refresh
+        });
+
+        btn2.addActionListener(e->{
+            rightPanel.remove(citizenSorting);
+            citizenSorting = null; //nullifying it
+
+            //creating a new object of the countStats JPanel with the same identifier
+            citizenSorting = createCitizenSorting();
+            rightPanel.add(citizenSorting);
+
+            setUpSearchBar(); //search bar refresh
+
+
+            searchBar.setVisible(true);
+            citizenSorting.setVisible(true);
+            addCitizen.setVisible(false);
+            countStats.setVisible(false);
+
+            setUpComponentZIndex(); // z index refresh
+
         });
         btn3.addActionListener(e->{
+            setUpSearchBar(); //search bar refresh
+
+
+            searchBar.setVisible(true);
             citizenSorting.setVisible(false);
             addCitizen.setVisible(true);
             countStats.setVisible(false);
+
+            setUpComponentZIndex(); // z index refresh
+
+
         });
         //----------BUTTON LISTENER--------------------------------------
-
-
-
-
-
-
-
-
 
 
 
@@ -173,8 +203,80 @@ public class MyFrame extends JFrame {
         //set the frame to not resizable
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    } // END OF CONSTRUCTOR
+
+
+
+
+
+
+
+    /**
+     * Method to add the JPanel for count stats object*/
+    private JPanel createCountStats(){
+        CountStats countStats = new CountStats();
+        countStats.setLocation(25,120);
+        countStats.setVisible(false);
+
+        return countStats;
     }
 
+    /**
+     * Method to add the JPanel for search bar object*/
+    private JPanel createSearchbar(){
+        CitizenSearchPanel searchBar = new CitizenSearchPanel(myProgramUtility.readDataFromCSV());
+        searchBar.setBounds(225,80,450,90);
+        searchBar.setVisible(false);
+
+        return searchBar;
+    }
+
+    /**
+     * Method to add the JPanel for citizen sort object*/
+    private JPanel createCitizenSorting(){
+        CitizenSorting citizenSorting = new CitizenSorting(myProgramUtility.readDataFromCSV());
+        citizenSorting.setLocation(40,140);
+        citizenSorting.setVisible(false);
+
+        return citizenSorting;
+    }
+
+    /**
+     * Method to add the JPanel for add citizen object*/
+    private JPanel createAddCitizen(){
+        AddCitizen addCitizen = new AddCitizen();
+        addCitizen.setLocation(45,160);
+        addCitizen.setVisible(false);
+
+        return addCitizen;
+    }
+
+
+
+
+
+
+
+
+
+    /**Setting up the search bar*/
+    private void setUpSearchBar(){
+        //for the search bar
+        rightPanel.remove(searchBar);
+        searchBar = null; //nullifying it
+        searchBar = createSearchbar(); // creating new search bar
+        rightPanel.add(searchBar);
+    }
+
+
+    /**Setting up the Component z index in the right panel*/
+    private void setUpComponentZIndex() {
+        //search bar Component Z Index
+        rightPanel.setComponentZOrder(searchBar,0);
+        rightPanel.setComponentZOrder(citizenSorting, 1);
+        rightPanel.setComponentZOrder(addCitizen, 1);
+        rightPanel.setComponentZOrder(countStats, 1);
+    }
 
     public static void main(String[] args) {
         new MyFrame();
