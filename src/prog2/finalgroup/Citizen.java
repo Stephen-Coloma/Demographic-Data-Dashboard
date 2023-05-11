@@ -1,7 +1,5 @@
 package prog2.finalgroup;
 
-import java.util.ArrayList;
-
 public class Citizen implements Comparable<Citizen> {
     /**
      * This is coded by JERWIN RAMOS at April 26, 2023
@@ -13,7 +11,6 @@ public class Citizen implements Comparable<Citizen> {
     private boolean resident;
     private int district;
     char gender;
-
 
     /**
      *This is a Default Constructor of Citizen
@@ -27,7 +24,6 @@ public class Citizen implements Comparable<Citizen> {
         district = 1;
         gender = 'M';
     }
-
 
     /**
      * This is a parameterized Constructor in creating Citizen Object
@@ -48,7 +44,6 @@ public class Citizen implements Comparable<Citizen> {
         this.district = district;
         this.gender = gender;
     }
-
 
     public String getFullName() {
         return fullName;
@@ -138,6 +133,5 @@ public class Citizen implements Comparable<Citizen> {
     public int compareTo(Citizen another) {
         return (this.fullName.compareToIgnoreCase(another.getFullName()));
     }
-
 }// end of class
 

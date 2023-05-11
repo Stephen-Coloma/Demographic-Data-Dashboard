@@ -1,7 +1,6 @@
 package prog2.finalgroup.Components;
 
 import prog2.finalgroup.MyProgramUtility;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.*;
@@ -39,7 +38,6 @@ public class CountStats extends JPanel {
     public CountStats(){
         setSize(850, 420);
         setVisible(true);
-
 
         lbl1.setFont(new Font("Century Gothic", Font.ITALIC | Font.BOLD, 15));
         lbl2.setForeground(Color.decode("#EFEFEF"));
@@ -91,7 +89,6 @@ public class CountStats extends JPanel {
         adultPopulationCount.setFont(new Font("Century Gothic",Font.CENTER_BASELINE, 27));
         adultPopulationCount.setBackground(new Color(82, 113, 255));
         adultPopulationCount.setForeground(Color.white);
-
 
         panel6.setBorder(BorderFactory.createEmptyBorder(35, 0, 0, 0));
         panel6a.add(teenagerPopulationLabel);
@@ -147,8 +144,6 @@ public class CountStats extends JPanel {
         panel2.add(lbl2);
 
         panel3.add(lbl3);
-
-
 
         GridBagLayout gbl = new GridBagLayout();
         GridBagConstraints gbc = new GridBagConstraints();
@@ -218,11 +213,7 @@ public class CountStats extends JPanel {
         gbc.ipady = 50;
         gbc.gridwidth = 2;
         add(panel8, gbc);
-
-
-//        add(mainPanel);
     }
-
 }
 
 

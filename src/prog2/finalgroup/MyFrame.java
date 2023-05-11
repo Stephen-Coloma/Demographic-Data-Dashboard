@@ -1,32 +1,23 @@
 package prog2.finalgroup;
 
 import prog2.finalgroup.Components.*;
-
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 public class MyFrame extends JFrame {
     MyProgramUtility myProgramUtility = new MyProgramUtility();
-
     private JPanel rightPanel;
-
     private JPanel searchBar;
     private JPanel countStats;
     private JPanel citizenSorting;
     private JPanel addCitizen;
+    private JPanel citizenLocator;
 
-
-    /**
-     * Header size: 30
-     * FRAME SIZE: 1000 by 600
-     * Left Panel: 80 by 570
-     * Right panel: 920 by 570*/
+    /**The main methof of the program
+     * @param args String[]*/
+    public static void main(String[] args) {
+        new MyFrame();
+    }
 
     public MyFrame() {
         // Set the size of the frame
@@ -37,18 +28,17 @@ public class MyFrame extends JFrame {
         leftPanel.setBackground(new Color(136, 191, 255));
         leftPanel.setSize(80, getHeight()-35);
 
-
         //icons
         ImageIcon icon1 = new ImageIcon("res/images/icon1.png");
         ImageIcon icon2 = new ImageIcon("res/images/icon2.png");
         ImageIcon icon3 = new ImageIcon("res/images/icon3.png");
-
+        ImageIcon icon4 = new ImageIcon("res/images/icon4.png");
 
         // Create 5 buttons with the given names
         JButton btn1 = new JButton(icon1);
         JButton btn2 = new JButton(icon2);
         JButton btn3 = new JButton(icon3);
-        JButton btn4 = new JButton("4");
+        JButton btn4 = new JButton(icon4);
 
         //setting up the focusable and the background
         btn1.setFocusable(false);
@@ -60,12 +50,8 @@ public class MyFrame extends JFrame {
         btn3.setBackground(new Color(82, 113, 255));
         btn4.setBackground(new Color(82, 113, 255));
 
-
-
-
         //Create the 2 vertical JSeparator
         JSeparator v1 = new JSeparator(SwingConstants.VERTICAL);
-//        JSeparator v2 = new JSeparator(SwingConstants.VERTICAL);
 
         // Set the layout of the left panel to a GridLayout with 5 rows and 1 column
         GridLayout layout = new GridLayout(7, 1);
@@ -73,7 +59,6 @@ public class MyFrame extends JFrame {
         leftPanel.setLayout(layout);
 
         // Add the buttons to the left panel
-//        leftPanel.add(v1);
         leftPanel.add(new JLabel());
         leftPanel.add(new JLabel());
         leftPanel.add(btn1);
@@ -81,7 +66,6 @@ public class MyFrame extends JFrame {
         leftPanel.add(btn3);
         leftPanel.add(btn4);
         leftPanel.add(new JLabel());
-//        leftPanel.add(v2);
 
         // Set the horizontal alignment of the buttons to center
         btn1.setHorizontalAlignment(JButton.CENTER);
@@ -97,10 +81,6 @@ public class MyFrame extends JFrame {
         // Set the layout of the frame to null so that we can manually position the panels
         rightPanel.setLayout(null);
         rightPanel.setBackground(Color.decode("#EFEFEF"));
-
-
-        // Create a label with the text "DEMOGRAPHIC DATA DASHBOARD" and a red border
-
 
         ImageIcon icon = new ImageIcon("res/images/title.png");
         JLabel titleLabel = new JLabel(icon);
@@ -125,24 +105,24 @@ public class MyFrame extends JFrame {
         addCitizen = createAddCitizen();
         addCitizen.setVisible(false);
 
+        //-------CITIZEN LOCATOR----------------------------------------------------------------
+        citizenLocator = createCitizenLocator();
+        citizenLocator.setVisible(false);
+
         //------------------------------------------------------------------------------------------
-
-
 
         //adding elements to right panel
         rightPanel.add(countStats);
         rightPanel.add(addCitizen);
         rightPanel.add(citizenSorting);
         rightPanel.add(searchBar);
+        rightPanel.add(citizenLocator);
         rightPanel.add(titleLabel);
-
 
         setUpComponentZIndex(); // z index refresh
 
-
         //----------BUTTON LISTENER--------------------------------------
         btn1.addActionListener(e->{
-
             //removing the JPanel component in the right panel
             rightPanel.remove(countStats);
             countStats = null; //nullifying it
@@ -153,13 +133,11 @@ public class MyFrame extends JFrame {
 
             setUpSearchBar(); //search bar refresh
 
-
             searchBar.setVisible(true);
             citizenSorting.setVisible(false);
             addCitizen.setVisible(false);
             countStats.setVisible(true);
-
-
+            citizenLocator.setVisible(false);
 
             setUpComponentZIndex(); // z index refresh
         });
@@ -174,31 +152,47 @@ public class MyFrame extends JFrame {
 
             setUpSearchBar(); //search bar refresh
 
-
             searchBar.setVisible(true);
             citizenSorting.setVisible(true);
             addCitizen.setVisible(false);
             countStats.setVisible(false);
+            citizenLocator.setVisible(false);
 
             setUpComponentZIndex(); // z index refresh
-
         });
+
         btn3.addActionListener(e->{
             setUpSearchBar(); //search bar refresh
-
 
             searchBar.setVisible(true);
             citizenSorting.setVisible(false);
             addCitizen.setVisible(true);
             countStats.setVisible(false);
+            citizenLocator.setVisible(false);
 
             setUpComponentZIndex(); // z index refresh
-
-
         });
+
+        btn4.addActionListener(e->{
+            rightPanel.remove(citizenLocator);
+            citizenLocator = null; //nullifying it
+
+            //creating a new object of the countStats JPanel with the same identifier
+            citizenLocator = createCitizenLocator();
+            rightPanel.add(citizenLocator);
+
+            setUpSearchBar(); //search bar refresh
+
+            searchBar.setVisible(true);
+            citizenSorting.setVisible(false);
+            addCitizen.setVisible(false);
+            countStats.setVisible(false);
+            citizenLocator.setVisible(true);
+
+            setUpComponentZIndex(); // z index refresh
+        });
+
         //----------BUTTON LISTENER--------------------------------------
-
-
 
         // Add the left and right panels to the frame
         add(leftPanel);
@@ -212,17 +206,10 @@ public class MyFrame extends JFrame {
         setLocationRelativeTo(null);
         setTitle("DEMOGRAPHIC DATA DASHBOARD");
 
-
         //set the frame to not resizable
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     } // END OF CONSTRUCTOR
-
-
-
-
-
-
 
     /**
      * Method to add the JPanel for count stats object*/
@@ -264,13 +251,15 @@ public class MyFrame extends JFrame {
         return addCitizen;
     }
 
+    /**
+     * Method to add the JPanel for add citizen object*/
+    private JPanel createCitizenLocator(){
+        CitizenLocator citizenLocator = new CitizenLocator(myProgramUtility.readDataFromCSV());
+        citizenLocator.setLocation(45,160);
+        citizenLocator.setVisible(false);
 
-
-
-
-
-
-
+        return citizenLocator;
+    }
 
     /**Setting up the search bar*/
     private void setUpSearchBar(){
@@ -289,9 +278,6 @@ public class MyFrame extends JFrame {
         rightPanel.setComponentZOrder(citizenSorting, 1);
         rightPanel.setComponentZOrder(addCitizen, 1);
         rightPanel.setComponentZOrder(countStats, 1);
-    }
-
-    public static void main(String[] args) {
-        new MyFrame();
+        rightPanel.setComponentZOrder(citizenLocator, 1);
     }
 }

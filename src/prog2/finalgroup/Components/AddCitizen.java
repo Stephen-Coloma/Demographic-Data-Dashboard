@@ -4,9 +4,7 @@ import prog2.finalgroup.Citizen;
 import prog2.finalgroup.MyProgramUtility;
 
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
-import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.ArrayList;
 
@@ -27,7 +25,6 @@ public class AddCitizen extends JPanel {
         titleLabel.setFont(new Font("Century Gothic", Font.BOLD | Font.ITALIC, 19));
         topPanel.add(titleLabel);
         add(topPanel, BorderLayout.NORTH);
-
 
         // Create registration panel with input fields
         JPanel registrationPanel = new JPanel();
@@ -97,7 +94,6 @@ public class AddCitizen extends JPanel {
         holder.add(residencyComboBox);
         holder.add(genderLabel);
         holder.add(genderComboBox);
-
 
         holder.setBounds(150, 10, 500, 250);
         holder.setBackground(Color.CYAN);
@@ -189,7 +185,3 @@ public class AddCitizen extends JPanel {
         add(buttonPanel, BorderLayout.SOUTH);
     }
 }
-
-
-
-

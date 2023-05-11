@@ -1,7 +1,6 @@
 package prog2.finalgroup.Components;
 
 import prog2.finalgroup.Citizen;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.RoundRectangle2D;
@@ -23,7 +22,6 @@ public class CitizenSearchPanel extends JPanel {
         setOpaque(false);
         this.citizens = citizens;
         setLayout(new BorderLayout());
-//        setBackground(Color.BLUE); //SUBBJECT TO CHANGE
 
         // Perform filtering operation on the list of citizens
         filteredCitizens = new ArrayList<>(citizens.stream()
@@ -77,7 +75,6 @@ public class CitizenSearchPanel extends JPanel {
             }
         });
 
-
         add(searchField, BorderLayout.NORTH);
 
         resultModel = new DefaultListModel<>();
@@ -110,13 +107,11 @@ public class CitizenSearchPanel extends JPanel {
                     resultPane.setVisible(false);
                     resultModel.clear();
                     resultPane.setOpaque(false);
-
                 } else {
                     ArrayList<String> matches = filteredCitizens.stream()
                             .filter(c -> c.getFullName().toLowerCase().contains(searchTerm))
                             .map(Citizen::getFullName)
                             .collect(Collectors.toCollection(ArrayList::new));
-
 
                     resultModel.clear();
                     matches.forEach(resultModel::addElement);
@@ -125,14 +120,11 @@ public class CitizenSearchPanel extends JPanel {
                     resultPane.setOpaque(true);
                     resultPane.setBackground(new Color(0,0,0,0));
                     resultList.setBackground(new Color(0,0,0,0));
-
                 }
                 resultPane.setOpaque(false);
             }
 
         });
-
-
         resultList.addMouseListener(new MouseAdapter()
         {
 
@@ -141,8 +133,5 @@ public class CitizenSearchPanel extends JPanel {
                 CitizenDetails citizenDetails = new CitizenDetails(e,resultList);
             }
         });
-
     }
-
-
 }

@@ -1,9 +1,7 @@
 package prog2.finalgroup.Components;
 
 import prog2.finalgroup.Citizen;
-
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -60,7 +58,6 @@ public class CitizenSorting extends JPanel {
         table.setDefaultEditor(Object.class, null);
         table.setFont(new Font("Century Gothic", Font.PLAIN, 13));
 
-
         //-------------COLUMN SIZES--------------------
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
@@ -97,7 +94,6 @@ public class CitizenSorting extends JPanel {
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBackground(Color.WHITE);
         add(scrollPane, BorderLayout.CENTER);
-
 
         // Create bottom panel with previous and next buttons
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -179,5 +175,4 @@ public class CitizenSorting extends JPanel {
                 return Comparator.comparing(Citizen::getFullName);
         }
     }
-
 }
