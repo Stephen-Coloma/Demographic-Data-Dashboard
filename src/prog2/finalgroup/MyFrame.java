@@ -23,6 +23,9 @@ public class MyFrame extends JFrame {
         // Set the size of the frame
         setSize(1000, 600);
 
+        ImageIcon logo = new ImageIcon("res/images/logo.png");
+        setIconImage(logo.getImage());
+
         // Create a left panel with a width of 50 and color it yellow
         JPanel leftPanel = new JPanel();
         leftPanel.setBackground(new Color(136, 191, 255));
