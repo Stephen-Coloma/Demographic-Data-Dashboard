@@ -138,45 +138,46 @@ public class CitizenSorting extends JPanel {
     }
 
     private void refreshTable() {
-        List<Citizen> filteredCitizens = citizens.stream()
-                .sorted(getComparator())
+        String sortField = (String) sortMenu.getSelectedItem();
+
+        List<Citizen> sortedCitizens = citizens.stream()
+                .sorted(getComparator(sortField))
+                .skip(startIndex)
+                .limit(18)
                 .collect(Collectors.toList());
+
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         model.setRowCount(0);
-        for (int i = startIndex; i < Math.min(startIndex + 18, filteredCitizens.size()); i++) {
-            Citizen citizen = filteredCitizens.get(i);
 
-            String resident;
-            if (citizen.isResident()){
-                resident = "Resident";
-            }else {
-                resident = "Non-Resident";
-            }
-            model.addRow(new Object[]{citizen.getFullName(), citizen.getEmail(), citizen.getAddress(), citizen.getAge(), resident, citizen.getDistrict(), citizen.getGender()});
+        for (Citizen citizen : sortedCitizens) {
+            String resident = citizen.isResident() ? "Resident" : "Non-Resident";
+            model.addRow(new Object[]{
+                    citizen.getFullName(),
+                    citizen.getEmail(),
+                    citizen.getAddress(),
+                    citizen.getAge(),
+                    resident,
+                    citizen.getDistrict(),
+                    citizen.getGender()
+            });
         }
     }
 
-    private Comparator<Citizen> getComparator() {
-        String sortField = (String) sortMenu.getSelectedItem();
-        Comparator<Citizen> comparator = Comparator.comparing(Citizen::getFullName);
+    private Comparator<Citizen> getComparator(String sortField) {
         switch (sortField) {
             case "Name":
-                comparator = Comparator.comparing(Citizen::getFullName);
-                break;
+                return Comparator.comparing(Citizen::getFullName);
             case "Email":
-                comparator = Comparator.comparing(Citizen::getEmail);
-                break;
+                return Comparator.comparing(Citizen::getEmail);
             case "Address":
-                comparator = Comparator.comparing(Citizen::getAddress);
-                break;
+                return Comparator.comparing(Citizen::getAddress);
             case "Age":
-                comparator = Comparator.comparing(Citizen::getAge);
-                break;
+                return Comparator.comparingInt(Citizen::getAge);
             case "District":
-                comparator = Comparator.comparing(Citizen::getDistrict);
-                break;
+                return Comparator.comparing(Citizen::getDistrict);
+            default:
+                return Comparator.comparing(Citizen::getFullName);
         }
-        return comparator;
     }
 
 }
