@@ -134,8 +134,6 @@ public class Citizen implements Comparable<Citizen> {
          }
     }
 
-
-
     @Override
     public int compareTo(Citizen another) {
         return (this.fullName.compareToIgnoreCase(another.getFullName()));

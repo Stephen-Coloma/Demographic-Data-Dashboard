@@ -1,9 +1,6 @@
 package prog2.finalgroup;
 
-import prog2.finalgroup.Components.AddCitizen;
-import prog2.finalgroup.Components.CitizenSorting;
-import prog2.finalgroup.Components.CitizenSearchPanel;
-import prog2.finalgroup.Components.CountStats;
+import prog2.finalgroup.Components.*;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -37,16 +34,32 @@ public class MyFrame extends JFrame {
 
         // Create a left panel with a width of 50 and color it yellow
         JPanel leftPanel = new JPanel();
-        leftPanel.setBackground(new Color(103, 148, 255));
-//        leftPanel.setBackground(Color.decode("#5692d7"));
-        leftPanel.setSize(80, getHeight()-30);
+        leftPanel.setBackground(new Color(136, 191, 255));
+        leftPanel.setSize(80, getHeight()-35);
+
+
+        //icons
+        ImageIcon icon1 = new ImageIcon("res/images/icon1.png");
+        ImageIcon icon2 = new ImageIcon("res/images/icon2.png");
+        ImageIcon icon3 = new ImageIcon("res/images/icon3.png");
 
 
         // Create 5 buttons with the given names
-        JButton btn1 = new JButton("1");
-        JButton btn2 = new JButton("2");
-        JButton btn3 = new JButton("3");
+        JButton btn1 = new JButton(icon1);
+        JButton btn2 = new JButton(icon2);
+        JButton btn3 = new JButton(icon3);
         JButton btn4 = new JButton("4");
+
+        //setting up the focusable and the background
+        btn1.setFocusable(false);
+        btn2.setFocusable(false);
+        btn3.setFocusable(false);
+        btn4.setFocusable(false);
+        btn1.setBackground(new Color(82, 113, 255));
+        btn2.setBackground(new Color(82, 113, 255));
+        btn3.setBackground(new Color(82, 113, 255));
+        btn4.setBackground(new Color(82, 113, 255));
+
 
 
 
